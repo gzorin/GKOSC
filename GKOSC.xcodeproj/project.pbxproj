@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA6C8A5C1551F27B00562FB8 /* GKOSCServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCCE1551C8E900331DC2 /* GKOSCServer.mm */; };
+		FA6C8A5D1551F27B00562FB8 /* GKOSCClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCB715516BF100331DC2 /* GKOSCClient.mm */; };
+		FA6C8A5E1551F27B00562FB8 /* GKOSCUDPDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCC81551C4EB00331DC2 /* GKOSCUDPDispatcher.mm */; };
+		FA6C8A5F1551F28600562FB8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC451550E88F00331DC2 /* liboscpack.a */; };
+		FA6C8A601551F2AF00562FB8 /* libGKOSC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C8A581551F26600562FB8 /* libGKOSC.a */; };
+		FA6C8A611551F2B400562FB8 /* libGKOSC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA6C8A581551F26600562FB8 /* libGKOSC.a */; };
 		FA76BC851550E95100331DC2 /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC721550E91800331DC2 /* OscOutboundPacketStream.cpp */; };
 		FA76BC861550E95100331DC2 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC751550E91800331DC2 /* OscPrintReceivedElements.cpp */; };
 		FA76BC871550E95100331DC2 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC771550E91800331DC2 /* OscReceivedElements.cpp */; };
@@ -14,13 +20,9 @@
 		FA76BC8A155167A300331DC2 /* GKOSC.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76BC89155167A300331DC2 /* GKOSC.h */; };
 		FA76BCAB155169AE00331DC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC94155168DA00331DC2 /* Foundation.framework */; };
 		FA76BCAE155169AE00331DC2 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCAD155169AE00331DC2 /* main.mm */; };
-		FA76BCB915516BF100331DC2 /* GKOSCClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCB715516BF100331DC2 /* GKOSCClient.mm */; };
-		FA76BCBA15516D9000331DC2 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC451550E88F00331DC2 /* liboscpack.a */; };
-		FA76BCC91551C4EB00331DC2 /* GKOSCUDPDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCC81551C4EB00331DC2 /* GKOSCUDPDispatcher.mm */; };
 		FA76BCCB1551C54A00331DC2 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC5F1550E91800331DC2 /* IpEndpointName.cpp */; };
 		FA76BCCC1551C54A00331DC2 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC641550E91800331DC2 /* NetworkingUtils.cpp */; };
 		FA76BCCD1551C54A00331DC2 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC651550E91800331DC2 /* UdpSocket.cpp */; };
-		FA76BCCF1551C8E900331DC2 /* GKOSCServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCCE1551C8E900331DC2 /* GKOSCServer.mm */; };
 		FA76BCD11551CDBA00331DC2 /* GKOSC_details.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76BCD01551CDBA00331DC2 /* GKOSC_details.h */; };
 		FA76BCD81551DE2900331DC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC94155168DA00331DC2 /* Foundation.framework */; };
 		FA76BCDB1551DE2900331DC2 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCDA1551DE2900331DC2 /* main.mm */; };
@@ -49,6 +51,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FA6C8A581551F26600562FB8 /* libGKOSC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGKOSC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA76BC451550E88F00331DC2 /* liboscpack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liboscpack.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA76BC581550E91800331DC2 /* CHANGES */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGES; sourceTree = "<group>"; };
 		FA76BC591550E91800331DC2 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
@@ -103,6 +106,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FA6C8A551551F26600562FB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA6C8A5F1551F28600562FB8 /* liboscpack.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA76BC421550E88F00331DC2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -114,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA76BCBA15516D9000331DC2 /* liboscpack.a in Frameworks */,
+				FA6C8A601551F2AF00562FB8 /* libGKOSC.a in Frameworks */,
 				FA76BCAB155169AE00331DC2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,6 +134,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA6C8A611551F2B400562FB8 /* libGKOSC.a in Frameworks */,
 				FA76BCE31551DE3F00331DC2 /* liboscpack.a in Frameworks */,
 				FA76BCD81551DE2900331DC2 /* Foundation.framework in Frameworks */,
 			);
@@ -153,6 +165,7 @@
 				FA76BC451550E88F00331DC2 /* liboscpack.a */,
 				FA76BCA9155169AE00331DC2 /* gkoscsend */,
 				FA76BCD61551DE2900331DC2 /* gkoscrecv */,
+				FA6C8A581551F26600562FB8 /* libGKOSC.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -303,6 +316,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		FA6C8A561551F26600562FB8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA76BC431550E88F00331DC2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +335,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FA6C8A571551F26600562FB8 /* GKOSC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA6C8A591551F26600562FB8 /* Build configuration list for PBXNativeTarget "GKOSC" */;
+			buildPhases = (
+				FA6C8A541551F26600562FB8 /* Sources */,
+				FA6C8A551551F26600562FB8 /* Frameworks */,
+				FA6C8A561551F26600562FB8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GKOSC;
+			productName = GKOSC;
+			productReference = FA6C8A581551F26600562FB8 /* libGKOSC.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		FA76BC441550E88F00331DC2 /* oscpack */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA76BC471550E88F00331DC2 /* Build configuration list for PBXNativeTarget "oscpack" */;
@@ -388,6 +425,7 @@
 			projectRoot = "";
 			targets = (
 				FA76BC441550E88F00331DC2 /* oscpack */,
+				FA6C8A571551F26600562FB8 /* GKOSC */,
 				FA76BCA8155169AE00331DC2 /* gkoscsend */,
 				FA76BCD51551DE2900331DC2 /* gkoscrecv */,
 			);
@@ -395,6 +433,16 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FA6C8A541551F26600562FB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA6C8A5C1551F27B00562FB8 /* GKOSCServer.mm in Sources */,
+				FA6C8A5D1551F27B00562FB8 /* GKOSCClient.mm in Sources */,
+				FA6C8A5E1551F27B00562FB8 /* GKOSCUDPDispatcher.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA76BC411550E88F00331DC2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,9 +454,6 @@
 				FA76BC861550E95100331DC2 /* OscPrintReceivedElements.cpp in Sources */,
 				FA76BC871550E95100331DC2 /* OscReceivedElements.cpp in Sources */,
 				FA76BC881550E95100331DC2 /* OscTypes.cpp in Sources */,
-				FA76BCB915516BF100331DC2 /* GKOSCClient.mm in Sources */,
-				FA76BCC91551C4EB00331DC2 /* GKOSCUDPDispatcher.mm in Sources */,
-				FA76BCCF1551C8E900331DC2 /* GKOSCServer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,6 +476,61 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		FA6C8A5A1551F26600562FB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				COPY_PHASE_STRIP = NO;
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		FA6C8A5B1551F26600562FB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_PREFIX = lib;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		FA76BC3F1550E88600331DC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -619,6 +719,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FA6C8A591551F26600562FB8 /* Build configuration list for PBXNativeTarget "GKOSC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA6C8A5A1551F26600562FB8 /* Debug */,
+				FA6C8A5B1551F26600562FB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FA76BC3D1550E88600331DC2 /* Build configuration list for PBXProject "GKOSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
