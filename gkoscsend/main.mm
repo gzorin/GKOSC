@@ -4,17 +4,6 @@
 
 #include <iostream>
 
-@interface RealClient : NSObject
-- (void) hello:(int32_t)x;
-@end
-
-@implementation RealClient
-- (void) hello:(int32_t)x
-{
-    std::cerr << "real_hello: " << x << std::endl;
-}
-@end
-
 int
 main(int argc,char ** argv)
 {
@@ -25,10 +14,10 @@ main(int argc,char ** argv)
         0,0,0
     };
     
-    GKOSCUDPDispatcher * d = [[GKOSCUDPDispatcher alloc] initWithHostname:@"localhost" andPort:9200];
+    GKOSCUDPTransporter * d = [[GKOSCUDPTransporter alloc] initWithHostname:@"localhost" andPort:9200];
         
     GKOSCClient * client = [[GKOSCClient alloc] initWithMapping:items];
-    [client addPacketDispatcher:d];
+    [client addPacketTransporter:d];
     
     [client hello:42];
     

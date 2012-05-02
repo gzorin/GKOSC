@@ -37,7 +37,7 @@ namespace {
 
 std::unordered_map< SEL, std::pair< path_format, signature_size >, hash_SEL, equal_to_SEL > m_mapping;
 std::stack< std::pair< path_format, size_t > > m_invocationStack;
-std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
+std::set< id<GKOSCPacketTransporter > > m_transporters;
 
 - (GKOSCClient *)initWithMapping:(struct GKOSCMapItem *)items
 {
@@ -52,14 +52,14 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
     return self;
 }
 
-- (void)addPacketDispatcher:(id<GKOSCPacketDispatcher>)dispatcher
+- (void)addPacketTransporter:(id<GKOSCPacketTransporter>)transporter
 {
-    m_dispatchers.insert(dispatcher);
+    m_transporters.insert(transporter);
 }
 
-- (void)removePacketDispatcher:(id<GKOSCPacketDispatcher>)dispatcher
+- (void)removePacketTransporter:(id<GKOSCPacketTransporter>)transporter
 {
-    m_dispatchers.erase(dispatcher);
+    m_transporters.erase(transporter);
 }
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)sel
@@ -114,8 +114,6 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
         variable_size
         ;
     
-    std::cerr << "Message will consume " << size << " bytes" << std::endl;
-    
     NSMutableData * buffer = [[[NSMutableData alloc] initWithLength:size] retain];
     
     osc::OutboundPacketStream oscs((char *)[buffer mutableBytes],size);
@@ -133,8 +131,8 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
     
     oscs << osc::EndMessage << osc::EndBundle;
     
-    for(auto dispatcher : m_dispatchers) {
-        [dispatcher dispatchPacket:buffer];
+    for(auto transporter : m_transporters) {
+        [transporter transportPacket:buffer];
     }
     
     [buffer release];

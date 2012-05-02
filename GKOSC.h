@@ -11,14 +11,14 @@ struct GKOSCMapItem {
     SEL selector;
 };
 
-@protocol GKOSCPacketDispatcher
-- (void) dispatchPacket:(NSData *)data;
+@protocol GKOSCPacketTransporter
+- (void) transportPacket:(NSData *)data;
 @end
 
 @interface GKOSCClient : NSProxy
 - (GKOSCClient *) initWithMapping:(struct GKOSCMapItem *)items;
-- (void) addPacketDispatcher:(id<GKOSCPacketDispatcher>)dispatcher;
-- (void) removePacketDispatcher:(id<GKOSCPacketDispatcher>)dispatcher;
+- (void) addPacketTransporter:(id<GKOSCPacketTransporter>)dispatcher;
+- (void) removePacketTransporter:(id<GKOSCPacketTransporter>)dispatcher;
 @end
 
 @interface GKOSCServer : NSObject
@@ -27,9 +27,9 @@ struct GKOSCMapItem {
 - (void) dispatchPacket:(NSData *)data;
 @end
 
-@interface GKOSCUDPDispatcher : NSObject< GKOSCPacketDispatcher >
-- (GKOSCUDPDispatcher *)initWithHostname:(NSString *)hostname andPort:(int)port;
-- (void)dispatchPacket:(NSData *)data;
+@interface GKOSCUDPTransporter : NSObject< GKOSCPacketTransporter >
+- (GKOSCUDPTransporter *)initWithHostname:(NSString *)hostname andPort:(int)port;
+- (void)transportPacket:(NSData *)data;
 @end
 
 #endif
