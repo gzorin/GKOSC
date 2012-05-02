@@ -41,7 +41,6 @@ main(int argc,char ** argv)
         }
         
         void ProcessPacket(const char * data,int size,const IpEndpointName &) {
-            std::cerr << "Got " << size << " bytes" << std::endl;
             [server dispatchPacket:[NSData dataWithBytesNoCopy:(void *)data length:size freeWhenDone:NO]];
         }
     } listener(server);

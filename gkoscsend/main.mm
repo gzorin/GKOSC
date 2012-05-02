@@ -15,17 +15,6 @@
 }
 @end
 
-@interface StupidDispatcher : NSObject < GKOSCPacketDispatcher >
-- (void)dispatchPacket:(NSData *)data;
-@end
-
-@implementation StupidDispatcher
-- (void)dispatchPacket:(NSData *)data
-{
-    std::cerr << "Dispatched " << [data length] << " bytes" << std::endl;
-}
-@end
-
 int
 main(int argc,char ** argv)
 {
@@ -36,7 +25,6 @@ main(int argc,char ** argv)
         0,0,0
     };
     
-    //StupidDispatcher * d = [[StupidDispatcher alloc] init];
     GKOSCUDPDispatcher * d = [[GKOSCUDPDispatcher alloc] initWithHostname:@"localhost" andPort:9200];
         
     GKOSCClient * client = [[GKOSCClient alloc] initWithMapping:items];
