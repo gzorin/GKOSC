@@ -2,6 +2,7 @@
 //  GKOSCClient.mm
 
 #import "GKOSC.h"
+#include "GKOSC_details.h"
 
 #include <osc/OscTypes.h>
 #include <osc/OscOutboundPacketStream.h>
@@ -30,128 +31,22 @@ namespace {
             return sel_isEqual(lhs,rhs);
         }
     };
-    
-    template< size_t Align >
-    size_t aligned_size(const size_t value)
-    {
-        const size_t value_mod_align = value & (Align - 1);
-        return (value_mod_align != 0) ? (value + Align - value_mod_align) : value;
-    }
-    
-    template< typename T, size_t Align >
-    size_t aligned_sizeof()
-    {
-        return aligned_size< Align >(sizeof(T));
-    }
-    
-    struct path_signature {
-        NSString * path, * format;
-        NSMethodSignature * signature;
-        size_t size;
-        
-        path_signature()
-        : path(0), format(0), signature(0), size(0) {
-        }
-        
-        path_signature(NSString * _path,NSString * _format)
-            : path(_path), format(_format), signature(0), size(0) {
-            assert(path != 0);
-            assert(format != 0);
-                
-            const size_t ntypes = [format length];
-                
-            std::string types;
-                
-            // Types for implicit Objective C method arguments:
-            //
-            // Return value (void):
-            types += @encode(void);
-                
-            // Object:
-            types += @encode(id);
-                
-            // Selector:
-            types += @encode(SEL);
-                
-            for(size_t i = 0;i < ntypes;++i) {
-                switch([format characterAtIndex:i]) {
-                    case osc::TRUE_TYPE_TAG:
-                    case osc::FALSE_TYPE_TAG:
-                        types += std::string(@encode(BOOL));
-                        break;
-                    case osc::NIL_TYPE_TAG:
-                        types += std::string(@encode(const void *));
-                        break;
-                    case osc::INT32_TYPE_TAG:
-                        types += std::string(@encode(int32_t));
-                        size += aligned_sizeof< int32_t, 4 >();
-                        break;
-                    case osc::FLOAT_TYPE_TAG:
-                        types += std::string(@encode(float));
-                        size += aligned_sizeof< float, 4 >();
-                        break;
-                    case osc::CHAR_TYPE_TAG:
-                        types += std::string(@encode(char));
-                        size += aligned_sizeof< char, 4 >();
-                        break;
-                    case osc::RGBA_COLOR_TYPE_TAG:
-                    case osc::MIDI_MESSAGE_TYPE_TAG:
-                        types += std::string(@encode(uint32_t));
-                        size += aligned_sizeof< uint32_t, 4 >();
-                        break;
-                    case osc::INT64_TYPE_TAG:
-                        types += std::string(@encode(int64_t));
-                        size += aligned_sizeof< int64_t, 4 >();
-                        break;
-                    case osc::TIME_TAG_TYPE_TAG:
-                        types += std::string(@encode(uint64_t));
-                        size += aligned_sizeof< uint64_t, 4 >();
-                        break;
-                    case osc::DOUBLE_TYPE_TAG:
-                        types += std::string(@encode(double));
-                        size += aligned_sizeof< double, 4 >();
-                        break;
-                    case osc::STRING_TYPE_TAG:
-                    case osc::SYMBOL_TYPE_TAG:
-                    case osc::BLOB_TYPE_TAG:
-                        types += std::string(@encode(id));
-                        break;
-                    default:
-                        types += '?';
-                        break;
-                }
-            }
-                
-            [path retain];
-            [format retain];
-            signature = [[NSMethodSignature signatureWithObjCTypes:types.c_str()] retain];
-        }
-        
-        path_signature(const path_signature & rhs)
-        : path(rhs.path), format(rhs.format), signature(rhs.signature), size(rhs.size) {
-            if(path != 0) [path retain];
-            if(format != 0) [format retain];
-            if(signature != 0) [signature retain];
-        }
-        
-        ~path_signature() {
-            if(path != 0) [path release];
-            if(format != 0) [format release];
-            if(signature != 0) [signature release];
-        }
-    };
 }
 
 @implementation GKOSCClient
 
-std::unordered_map< SEL, path_signature, hash_SEL, equal_to_SEL > m_mapping;
-std::stack< path_signature > m_invocationStack;
+std::unordered_map< SEL, std::pair< path_format, signature_size >, hash_SEL, equal_to_SEL > m_mapping;
+std::stack< std::pair< path_format, size_t > > m_invocationStack;
 std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
 
 - (GKOSCClient *)initWithMapping:(struct GKOSCMapItem *)items
 {
     for(struct GKOSCMapItem * item = items;item -> selector != 0;++item) {
-        m_mapping.insert(std::make_pair(item -> selector,path_signature(item -> path,item -> format)));
+        auto tmp = m_mapping.insert(std::make_pair(item -> selector,std::make_pair(path_format(),signature_size())));
+        if(tmp.second) {
+            tmp.first -> second.first = path_format(item -> path,item -> format);
+            tmp.first -> second.second = signature_size(item -> format);
+        }
     }
     
     return self;
@@ -172,8 +67,8 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
     auto it = m_mapping.find(sel);
     
     if(it != m_mapping.end()) {
-        m_invocationStack.push(it -> second);
-        return it -> second.signature;
+        m_invocationStack.push(std::make_pair(it -> second.first,it -> second.second.size));
+        return it -> second.second.signature;
     }
     else {
         return [super methodSignatureForSelector:sel];
@@ -184,9 +79,11 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
 {
     assert(!m_invocationStack.empty());
     
-    const path_signature & ps = m_invocationStack.top();
+    const path_format & ps = m_invocationStack.top().first;
     NSString * format = ps.format;
     const size_t ntypes = [format length];
+    
+    const size_t fixed_size = m_invocationStack.top().second;
     
     // Compute the size of arguments of variable sizes:
     size_t variable_size = 0;
@@ -213,7 +110,7 @@ std::set< id<GKOSCPacketDispatcher > > m_dispatchers;
         // Size of message header:
         (4 + aligned_size< 4 >([ps.path length] + 1)) +
         // Space consumed by arguments of fixed size:
-        ps.size +
+        fixed_size +
         variable_size
         ;
     

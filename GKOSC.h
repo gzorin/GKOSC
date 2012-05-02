@@ -21,10 +21,14 @@ struct GKOSCMapItem {
 - (void) removePacketDispatcher:(id<GKOSCPacketDispatcher>)dispatcher;
 @end
 
+@interface GKOSCServer : NSObject
+- (void) addObject:(NSObject *)object withMapping:(struct GKOSCMapItem *)items;
+- (void) removeObject:(NSObject *)object;
+- (void) dispatchPacket:(NSData *)data;
+@end
+
 @interface GKOSCUDPDispatcher : NSObject< GKOSCPacketDispatcher >
-
 - (GKOSCUDPDispatcher *)initWithHostname:(NSString *)hostname andPort:(int)port;
-
 - (void)dispatchPacket:(NSData *)data;
 @end
 
