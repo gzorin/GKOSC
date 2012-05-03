@@ -28,9 +28,7 @@
 		FA6C8A8315520C6B00562FB8 /* GKOSC.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76BC89155167A300331DC2 /* GKOSC.h */; };
 		FA6C8A8415520C6B00562FB8 /* GKOSC_details.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76BCD01551CDBA00331DC2 /* GKOSC_details.h */; };
 		FA6C8A8A15520D6700562FB8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC451550E88F00331DC2 /* liboscpack.a */; };
-		FA6C8A8C155210A400562FB8 /* GKOSCSessionTransporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */; };
 		FA6C8A8D1552139800562FB8 /* GKOSCSessionTransporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */; };
-		FA6C8A8F155216FB00562FB8 /* GKOSCSessionHandlerServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */; };
 		FA6C8A901552174D00562FB8 /* GKOSCSessionHandlerServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */; };
 		FA76BC851550E95100331DC2 /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC721550E91800331DC2 /* OscOutboundPacketStream.cpp */; };
 		FA76BC861550E95100331DC2 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC751550E91800331DC2 /* OscPrintReceivedElements.cpp */; };
@@ -71,7 +69,7 @@
 
 /* Begin PBXFileReference section */
 		FA6C8A581551F26600562FB8 /* libGKOSC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGKOSC.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA6C8A7715520C4500562FB8 /* libGKOSC-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGKOSC-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA6C8A7715520C4500562FB8 /* libGKOSC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGKOSC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6C8A8815520C6B00562FB8 /* liboscpack-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "liboscpack-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionTransporter.mm; sourceTree = "<group>"; };
 		FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionHandlerServer.mm; sourceTree = "<group>"; };
@@ -206,7 +204,7 @@
 				FA76BCA9155169AE00331DC2 /* gkoscsend */,
 				FA76BCD61551DE2900331DC2 /* gkoscrecv */,
 				FA6C8A581551F26600562FB8 /* libGKOSC.a */,
-				FA6C8A7715520C4500562FB8 /* libGKOSC-iOS.a */,
+				FA6C8A7715520C4500562FB8 /* libGKOSC.a */,
 				FA6C8A8815520C6B00562FB8 /* liboscpack-iOS.a */,
 			);
 			name = Products;
@@ -426,7 +424,7 @@
 			);
 			name = "GKOSC-iOS";
 			productName = GKOSC;
-			productReference = FA6C8A7715520C4500562FB8 /* libGKOSC-iOS.a */;
+			productReference = FA6C8A7715520C4500562FB8 /* libGKOSC.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		FA6C8A7815520C6B00562FB8 /* oscpack-iOS */ = {
@@ -576,8 +574,6 @@
 				FA76BC861550E95100331DC2 /* OscPrintReceivedElements.cpp in Sources */,
 				FA76BC871550E95100331DC2 /* OscReceivedElements.cpp in Sources */,
 				FA76BC881550E95100331DC2 /* OscTypes.cpp in Sources */,
-				FA6C8A8C155210A400562FB8 /* GKOSCSessionTransporter.mm in Sources */,
-				FA6C8A8F155216FB00562FB8 /* GKOSCSessionHandlerServer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,7 +677,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "GKOSC-iOS";
+				PRODUCT_NAME = GKOSC;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -705,7 +701,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "GKOSC-iOS";
+				PRODUCT_NAME = GKOSC;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -736,7 +732,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "oscpack-iOS";
+				PRODUCT_NAME = oscpack;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -760,7 +756,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/extsrc/oscpack";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = "oscpack-iOS";
+				PRODUCT_NAME = oscpack;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
@@ -768,12 +764,14 @@
 		FA76BC3F1550E88600331DC2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ATV2DEV_LOCATION = /usr/local/atv2dev;
 			};
 			name = Debug;
 		};
 		FA76BC401550E88600331DC2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ATV2DEV_LOCATION = /usr/local/atv2dev;
 			};
 			name = Release;
 		};

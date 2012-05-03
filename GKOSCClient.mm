@@ -127,6 +127,11 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
             [invocation getArgument:&value atIndex:j];
             oscs << value;
         }
+        else if(type == osc::FLOAT_TYPE_TAG) {
+            float value = 0.0f;
+            [invocation getArgument:&value atIndex:j];
+            oscs << value;
+        }
     }
     
     oscs << osc::EndMessage << osc::EndBundle;
@@ -136,6 +141,8 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     }
     
     [buffer release];
+    
+    m_invocationStack.pop();
 }
 
 @end

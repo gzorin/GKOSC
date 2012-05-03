@@ -14,6 +14,7 @@ NSMutableArray * m_peers;
     m_peers = [[[NSMutableArray alloc] init] retain];
     sendToAllSessionPeers = NO;
     sendMode = GKSendDataUnreliable;
+    return self;
 }
 
 - (GKOSCSessionTransporter *)initWithSession:(GKSession *)theSession

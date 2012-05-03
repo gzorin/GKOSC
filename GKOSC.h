@@ -4,8 +4,8 @@
 #ifndef GKOSC_h
 #define GKOSC_h
 
+#include <Availability.h>
 #import <Foundation/Foundation.h>
-#import <GameKit/GameKit.h>
 
 struct GKOSCMapItem {
     NSString * path, * format;
@@ -34,6 +34,9 @@ struct GKOSCMapItem {
 - (void)transportPacket:(NSData *)data;
 @end
 
+#if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
+#import <GameKit/GameKit.h>
+
 @interface GKOSCSessionTransporter : NSObject< GKOSCPacketTransporter >
 - (GKOSCSessionTransporter *)init;
 - (GKOSCSessionTransporter *)initWithSession:(GKSession *)session;
@@ -54,5 +57,7 @@ struct GKOSCMapItem {
 
 @interface GKOSCSessionHandlerServer : GKOSCServer< GKSessionDelegate >
 @end
+
+#endif
 
 #endif

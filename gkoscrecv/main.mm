@@ -8,11 +8,11 @@
 #include <ip/UdpSocket.h>
 
 @interface RealClient : NSObject
-- (void) hello:(int32_t)x;
+- (void) hello:(int32_t)x magic:(float)t;
 @end
 
 @implementation RealClient
-- (void) hello:(int32_t)x
+- (void) hello:(int32_t)x magic:(float)t;
 {
     std::cerr << "real_hello: " << x << std::endl;
 }

@@ -106,6 +106,8 @@ namespace {
                 }
             }
             
+            std::cerr << "want types: " << types << std::endl;
+            
             signature = [[NSMethodSignature signatureWithObjCTypes:types.c_str()] retain];
         }
         
