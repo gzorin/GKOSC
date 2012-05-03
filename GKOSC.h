@@ -17,6 +17,9 @@ struct GKOSCMapItem {
 @end
 
 @interface GKOSCClient : NSProxy
++ (NSMethodSignature *) methodSignatureWithFormat:(NSString *)format;
++ (BOOL) encodeInvocation:(NSInvocation *)invocation toPacket:(NSMutableData *)data withPath:(NSString *)path withFormat:(NSString *)format;
+
 - (GKOSCClient *) initWithMapping:(struct GKOSCMapItem *)items;
 - (void) addPacketTransporter:(id<GKOSCPacketTransporter>)dispatcher;
 - (void) removePacketTransporter:(id<GKOSCPacketTransporter>)dispatcher;

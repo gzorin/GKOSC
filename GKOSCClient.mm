@@ -7,6 +7,8 @@
 #include <osc/OscTypes.h>
 #include <osc/OscOutboundPacketStream.h>
 
+#include <CoreFoundation/CoreFoundation.h>
+
 #import <objc/runtime.h>
 
 #include <unordered_map>
@@ -36,8 +38,173 @@ namespace {
 @implementation GKOSCClient
 
 std::unordered_map< SEL, std::pair< path_format, signature_size >, hash_SEL, equal_to_SEL > m_mapping;
-std::stack< std::pair< path_format, size_t > > m_invocationStack;
 std::set< id<GKOSCPacketTransporter > > m_transporters;
+
++ (NSMethodSignature *) methodSignatureWithFormat:(NSString *)format
+{
+    const size_t ntypes = [format length];
+    
+    std::string types;
+    
+    // Types for implicit Objective C method arguments:
+    //
+    // Return value (void):
+    types += @encode(void);
+    
+    // Object:
+    types += @encode(id);
+    
+    // Selector:
+    types += @encode(SEL);
+    
+    for(size_t i = 0;i < ntypes;++i) {
+        switch([format characterAtIndex:i]) {
+            case osc::TRUE_TYPE_TAG:
+            case osc::FALSE_TYPE_TAG:
+                types += std::string(@encode(BOOL));
+                break;
+            case osc::NIL_TYPE_TAG:
+                types += std::string(@encode(const void *));
+                break;
+            case osc::INT32_TYPE_TAG:
+                types += std::string(@encode(int32_t));
+                break;
+            case osc::FLOAT_TYPE_TAG:
+                types += std::string(@encode(float));
+                break;
+            case osc::CHAR_TYPE_TAG:
+                types += std::string(@encode(char));
+                break;
+            case osc::RGBA_COLOR_TYPE_TAG:
+            case osc::MIDI_MESSAGE_TYPE_TAG:
+                types += std::string(@encode(uint32_t));
+                break;
+            case osc::INT64_TYPE_TAG:
+                types += std::string(@encode(int64_t));
+                break;
+            case osc::TIME_TAG_TYPE_TAG:
+                types += std::string(@encode(uint64_t));
+                break;
+            case osc::DOUBLE_TYPE_TAG:
+                types += std::string(@encode(double));
+                break;
+            case osc::STRING_TYPE_TAG:
+            case osc::SYMBOL_TYPE_TAG:
+            case osc::BLOB_TYPE_TAG:
+                types += std::string(@encode(id));
+                break;
+            default:
+                types += '?';
+                break;
+        }
+    }
+    
+    return [[NSMethodSignature signatureWithObjCTypes:types.c_str()] retain];
+}
+
++ (BOOL) encodeInvocation:(NSInvocation *)invocation toPacket:(NSMutableData *)data withPath:(NSString *)path withFormat:(NSString *)format
+{
+    const size_t n = [format length];
+    
+    const uint8_t * type_tags = (const uint8_t *)[format UTF8String];
+    const uint8_t * ptype_tags = type_tags;
+        
+    // Compute the size of the message:
+    size_t args_size = 0;
+    for(size_t i = 0,j = 2;i < n;++i,++j,++ptype_tags) {
+        if(*ptype_tags == 'i') {
+            args_size += sizeof(int32_t);
+        }
+        else if(*ptype_tags == 'f') {
+            args_size += sizeof(float);
+        }
+        else if(*ptype_tags == 's') {
+            NSString * value = 0;
+            [invocation getArgument:&value atIndex:j];
+            args_size += aligned_size< 4 >([value length] + 1);
+        }
+        else if(*ptype_tags == 'b') {
+            NSData * value = 0;
+            [invocation getArgument:&value atIndex:j];
+            args_size += aligned_size< 4 >([value length] + sizeof(int32_t));
+        }
+    }
+    
+    // The size of the message header:
+    const size_t message_header_size = aligned_size< 4 >([path length] + 1) + aligned_size< 4 >(n + 2);
+    
+    // The size of the bundle header:
+    const size_t bundle_header_size = 8 + 8 + sizeof(int32_t);
+    
+    const size_t message_size = message_header_size + args_size;
+    const size_t packet_size = bundle_header_size + message_size;
+    
+    NSMutableData * packet = [[NSMutableData dataWithLength:packet_size] retain];
+    uint8_t * bytes = (uint8_t *)[packet mutableBytes];
+        
+    bytes[0] = '#';
+    bytes[1] = 'b';
+    bytes[2] = 'u';
+    bytes[3] = 'n';
+    bytes[4] = 'd';
+    bytes[5] = 'l';
+    bytes[6] = 'e';
+    bytes[7] = 0;
+    bytes += 8;
+    
+    *(uint64_t *)bytes = CFSwapInt64HostToBig(0);
+    bytes += 8;
+    
+    *(int32_t *)bytes = CFSwapInt32HostToBig((uint32_t)message_size);
+    bytes += sizeof(int32_t);
+    
+    memcpy(bytes,[path UTF8String],[path length]);
+    bytes[[path length]] = 0;
+    bytes += aligned_size< 4 >([path length] + 1);
+    
+    *bytes = ',';
+    memcpy(bytes + 1,type_tags,n);
+    bytes[1 + n] = 0;
+    bytes += aligned_size< 4 >(n + 2);
+    
+    ptype_tags = type_tags;
+    
+    // Copy argument data:
+    for(size_t i = 0,j = 2;i < n;++i,++j,++ptype_tags) {
+        if(*ptype_tags == 'i') {
+            int32_t value = 0;
+            [invocation getArgument:&value atIndex:j];
+            std::cerr << value << std::endl;
+            *(int32_t *)bytes = CFSwapInt32HostToBig(value);
+            bytes += sizeof(int32_t);
+        }
+        else if(*ptype_tags == 'f') {
+            float value = 0;
+            [invocation getArgument:&value atIndex:j];
+            std::cerr << value << std::endl;
+            *(uint32_t* )bytes = CFConvertFloat32HostToSwapped(value).v;
+            bytes += sizeof(uint32_t);
+        }
+        else if(*ptype_tags == 's') {
+            NSString * value = 0;
+            [invocation getArgument:&value atIndex:j];
+            const size_t len = [value length];
+            memcpy(bytes,[value UTF8String],len);
+            bytes[len] = 0;
+            bytes += len + 1;
+        }
+        else if(*ptype_tags == 'b') {
+            NSData * value = 0;
+            [invocation getArgument:&value atIndex:j];
+            
+        }
+    }
+    
+    [data setData:packet];
+    [packet release];
+    
+    return YES;
+}
 
 - (GKOSCClient *)initWithMapping:(struct GKOSCMapItem *)items
 {
@@ -67,7 +234,6 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     auto it = m_mapping.find(sel);
     
     if(it != m_mapping.end()) {
-        m_invocationStack.push(std::make_pair(it -> second.first,it -> second.second.size));
         return it -> second.second.signature;
     }
     else {
@@ -77,72 +243,24 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
 
 - (void)forwardInvocation:(NSInvocation *)invocation
 {
-    assert(!m_invocationStack.empty());
+    std::cerr << sel_getName([invocation selector]) << std::endl;
     
-    const path_format & ps = m_invocationStack.top().first;
+    auto it = m_mapping.find([invocation selector]);
+    assert(it != m_mapping.end());
+    
+    const path_format & ps = it -> second.first;
+    NSString * path = ps.path;
     NSString * format = ps.format;
-    const size_t ntypes = [format length];
     
-    const size_t fixed_size = m_invocationStack.top().second;
+    NSMutableData * packet = [[NSMutableData dataWithLength:0] retain];
     
-    // Compute the size of arguments of variable sizes:
-    size_t variable_size = 0;
-    
-    for(size_t i = 0,j = 2;i < ntypes;++i,++j) {
-        const osc::TypeTagValues type = (osc::TypeTagValues)[format characterAtIndex:i];
-        
-        if(type == osc::STRING_TYPE_TAG ||
-           type == osc::SYMBOL_TYPE_TAG) {
-            NSString * value = 0;
-            [invocation getArgument:&value atIndex:j];
-            variable_size += [value length] + 1;
-        }
-        else if(type == osc::BLOB_TYPE_TAG) {
-            NSData * value = 0;
-            [invocation getArgument:&value atIndex:j];
-            variable_size += [value length];
-        }
-    }
-    
-    const size_t size = 
-        // Size of bundle header:
-        (4 + 16) +
-        // Size of message header:
-        (4 + aligned_size< 4 >([ps.path length] + 1)) +
-        // Space consumed by arguments of fixed size:
-        fixed_size +
-        variable_size
-        ;
-    
-    NSMutableData * buffer = [[[NSMutableData alloc] initWithLength:size] retain];
-    
-    osc::OutboundPacketStream oscs((char *)[buffer mutableBytes],size);
-    oscs << osc::BeginBundleImmediate << osc::BeginMessage([ps.path UTF8String]);
-    
-    for(size_t i = 0,j = 2;i < ntypes;++i,++j) {
-        const osc::TypeTagValues type = (osc::TypeTagValues)[format characterAtIndex:i];
-        
-        if(type == osc::INT32_TYPE_TAG) {
-            int32_t value = 0;
-            [invocation getArgument:&value atIndex:j];
-            oscs << value;
-        }
-        else if(type == osc::FLOAT_TYPE_TAG) {
-            float value = 0.0f;
-            [invocation getArgument:&value atIndex:j];
-            oscs << value;
-        }
-    }
-    
-    oscs << osc::EndMessage << osc::EndBundle;
+    [GKOSCClient encodeInvocation:invocation toPacket:packet withPath:path withFormat:format];
     
     for(auto transporter : m_transporters) {
-        [transporter transportPacket:buffer];
+        [transporter transportPacket:packet];
     }
     
-    [buffer release];
-    
-    m_invocationStack.pop();
+    [packet release];
 }
 
 @end
