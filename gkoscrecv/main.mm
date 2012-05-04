@@ -1,32 +1,25 @@
 #import <Foundation/Foundation.h>
 
 #import <GKOSC.h>
+#import "Thing.h"
 
 #include <iostream>
 
 #include <ip/PacketListener.h>
 #include <ip/UdpSocket.h>
 
-struct GKOSCMapItem RealClient_mapping[] = {
-    { @"hello",@"if",@selector(hello:value:) },
-    { @"goodbye",@"if",@selector(goodbye:value:) },
-    { 0,0,0 }
-};
-
-@interface RealClient : NSObject
-- (void) hello:(int32_t)x value:(float)t;
-- (void) goodbye:(int32_t)x value:(float)t;
+@interface RealThing : NSObject< Thing >
 @end
 
-@implementation RealClient
+@implementation RealThing
 - (void) hello:(int32_t)x value:(float)t;
 {
-    std::cerr << "real_hello: " << x << " " << t << std::endl;
+    std::cerr << "hello: " << x << " " << t << std::endl;
 }
 
 - (void) goodbye:(int32_t)x value:(float)t;
 {
-    std::cerr << "real_goodbye: " << x << " " << t << std::endl;
+    std::cerr << "goodbye: " << x << " " << t << std::endl;
 }
 @end
 
@@ -35,10 +28,10 @@ main(int argc,char ** argv)
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
         
-    RealClient * real_client = [[RealClient alloc] init];
+    RealThing * real_client = [[RealThing alloc] init];
     
     GKOSCServer * server = [[GKOSCServer alloc] init];
-    [server addObject:real_client withMapping:RealClient_mapping];
+    [server addObject:real_client withMapping:Thing_mapping];
     
     struct Listener : PacketListener {
         GKOSCServer * server;
