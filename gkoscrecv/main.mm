@@ -8,18 +8,25 @@
 #include <ip/UdpSocket.h>
 
 struct GKOSCMapItem RealClient_mapping[] = {
-    @"hello",@"if",@selector(hello:value:),
-    0,0,0
+    { @"hello",@"if",@selector(hello:value:) },
+    { @"goodbye",@"if",@selector(goodbye:value:) },
+    { 0,0,0 }
 };
 
 @interface RealClient : NSObject
 - (void) hello:(int32_t)x value:(float)t;
+- (void) goodbye:(int32_t)x value:(float)t;
 @end
 
 @implementation RealClient
 - (void) hello:(int32_t)x value:(float)t;
 {
     std::cerr << "real_hello: " << x << " " << t << std::endl;
+}
+
+- (void) goodbye:(int32_t)x value:(float)t;
+{
+    std::cerr << "real_goodbye: " << x << " " << t << std::endl;
 }
 @end
 

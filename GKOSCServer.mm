@@ -12,15 +12,8 @@
 namespace {
     struct less_path_format {
         bool operator()(const path_format & lhs,const path_format & rhs) const {
-            return
-                std::lexicographical_compare([lhs.path UTF8String],
-                                             [lhs.path UTF8String] + [lhs.path length],
-                                             [rhs.path UTF8String],
-                                             [rhs.path UTF8String] + [rhs.path length]) &&
-                std::lexicographical_compare([lhs.format UTF8String],
-                                             [lhs.format UTF8String] + [lhs.format length],
-                                             [rhs.format UTF8String],
-                                             [rhs.format UTF8String] + [rhs.format length]);
+            const NSComparisonResult less_path = [lhs.path compare:rhs.path];            
+            return (less_path == NSOrderedAscending) || (less_path == NSOrderedSame && [lhs.format compare:rhs.format] == NSOrderedAscending);
         }
     };
 }
@@ -151,7 +144,7 @@ std::map<
 
 - (void) addObject:(NSObject *)object withMapping:(struct GKOSCMapItem *)items
 {
-    for(struct GKOSCMapItem * item = items;item -> selector != 0;++item) {
+    for(struct GKOSCMapItem * item = items;item -> path != 0;++item) {        
         auto tmp = m_mapping.insert(std::make_pair(path_format(item -> path,item -> format),std::make_tuple(item -> selector,(NSMethodSignature *)0,std::set< NSObject * >())));
         selector_signature_objects & sso = tmp.first -> second;
         

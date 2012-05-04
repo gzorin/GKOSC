@@ -203,7 +203,7 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
 
 - (GKOSCClient *)initWithMapping:(struct GKOSCMapItem *)items
 {
-    for(struct GKOSCMapItem * item = items;item -> selector != 0;++item) {
+    for(struct GKOSCMapItem * item = items;item -> path != 0;++item) {
         auto tmp = m_mapping.insert(std::make_pair(item -> selector,std::make_pair(path_format(),(NSMethodSignature *)0)));
         if(tmp.second) {
             tmp.first -> second.first = path_format(item -> path,item -> format);
