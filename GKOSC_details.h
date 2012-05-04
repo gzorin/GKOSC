@@ -26,32 +26,93 @@ namespace {
     {
         return aligned_size< Align >(sizeof(T));
     }
-
-struct path_format {
-    NSString * path, * format;
     
-    path_format()
-    : path(0), format(0) {
-    }
-    
-    path_format(NSString * _path,NSString * _format)
-    : path(_path), format(_format) {
-        if(path) [path retain];
-        if(format) [format retain];
-    }
+    template< typename T >
+    struct TNSsmartPointer {
+    protected:
         
-    path_format(const path_format & rhs)
-    : path(rhs.path), format(rhs.format) {
-        if(path != 0) [path retain];
-        if(format != 0) [format retain];
-    }
+        T * m_ptr;
+        
+        inline
+        static void retain(T * ptr) {
+            if(ptr) [ptr retain];
+        }
+        
+        inline
+        static void release(T * ptr) {
+            if(ptr) [ptr release];
+        }
+        
+    public:
+        
+        TNSsmartPointer(T * ptr = 0) : m_ptr(ptr) {
+            retain(m_ptr);
+        }
+        
+        TNSsmartPointer(const TNSsmartPointer & rhs) : m_ptr(rhs.m_ptr) {
+            retain(m_ptr);
+        }
+        
+        ~TNSsmartPointer() {
+            release(m_ptr);
+        }
+        
+        inline
+        TNSsmartPointer & operator=(const TNSsmartPointer & rhs) {
+            T * ptr = m_ptr;
+            m_ptr = rhs.m_ptr;
+            retain(m_ptr);
+            release(ptr);
+            return *this;
+        }
+        
+        inline
+        bool operator ==(const TNSsmartPointer & rhs) const {
+            return m_ptr == rhs.m_ptr;
+        }
+        
+        inline
+        bool operator !=(const TNSsmartPointer & rhs) const {
+            return m_ptr != rhs.m_ptr;
+        }
+        
+        inline
+        bool operator ==(const T * rhs) const {
+            return m_ptr == rhs;
+        }
+        
+        inline
+        bool operator !=(const T * rhs) const {
+            return m_ptr != rhs;
+        }
+        
+        inline
+        T * it() const {
+            return m_ptr;
+        }
+        
+        inline
+        operator bool() const {
+            return m_ptr != 0;
+        }
+        
+        template< typename O >
+        inline
+        operator TNSsmartPointer< O >() const {
+            return TNSsmartPointer< O >(m_ptr);
+        }
+    };
     
-    ~path_format() {
-        if(path != 0) [path release];
-        if(format != 0) [format release];
-    }
-};
-    
+    struct path_format {
+        TNSsmartPointer< NSString > path, format;
+        
+        path_format() {
+        }
+        
+        path_format(NSString * _path,NSString * _format)
+        : path(_path), format(_format) {
+        }
+    };    
 }
 
 #endif

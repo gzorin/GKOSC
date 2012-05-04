@@ -34,8 +34,8 @@ namespace {
 
 @implementation GKOSCClient
 
-std::unordered_map< SEL, std::pair< path_format, NSMethodSignature * >, hash_SEL, equal_to_SEL > m_mapping;
-std::set< id<GKOSCPacketTransporter > > m_transporters;
+std::unordered_map< SEL, std::pair< path_format, TNSsmartPointer<NSMethodSignature> >, hash_SEL, equal_to_SEL > m_mapping;
+std::set< TNSsmartPointer<NSObject<GKOSCPacketTransporter> > > m_transporters;
 
 + (NSMethodSignature *) methodSignatureWithFormat:(NSString *)format
 {
@@ -214,12 +214,12 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     return self;
 }
 
-- (void)addPacketTransporter:(id<GKOSCPacketTransporter>)transporter
+- (void)addPacketTransporter:(NSObject<GKOSCPacketTransporter> *)transporter
 {
     m_transporters.insert(transporter);
 }
 
-- (void)removePacketTransporter:(id<GKOSCPacketTransporter>)transporter
+- (void)removePacketTransporter:(NSObject <GKOSCPacketTransporter> *)transporter
 {
     m_transporters.erase(transporter);
 }
@@ -229,7 +229,7 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     auto it = m_mapping.find(sel);
     
     if(it != m_mapping.end()) {
-        return it -> second.second;
+        return it -> second.second.it();
     }
     else {
         return [super methodSignatureForSelector:sel];
@@ -242,15 +242,15 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     assert(it != m_mapping.end());
     
     const path_format & ps = it -> second.first;
-    NSString * path = ps.path;
-    NSString * format = ps.format;
+    NSString * path = ps.path.it();
+    NSString * format = ps.format.it();
     
     NSMutableData * packet = [[NSMutableData dataWithLength:0] retain];
     
     [GKOSCClient encodeInvocation:invocation toPacket:packet withPath:path withFormat:format];
     
     for(auto transporter : m_transporters) {
-        [transporter transportPacket:packet];
+        [transporter.it() transportPacket:packet];
     }
     
     [packet release];

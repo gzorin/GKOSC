@@ -12,14 +12,14 @@
 namespace {
     struct less_path_format {
         bool operator()(const path_format & lhs,const path_format & rhs) const {
-            const NSComparisonResult less_path = [lhs.path compare:rhs.path];            
-            return (less_path == NSOrderedAscending) || (less_path == NSOrderedSame && [lhs.format compare:rhs.format] == NSOrderedAscending);
+            const NSComparisonResult less_path = [lhs.path.it() compare:rhs.path.it()];
+            return (less_path == NSOrderedAscending) || (less_path == NSOrderedSame && [lhs.format.it() compare:rhs.format.it()] == NSOrderedAscending);
         }
     };
 }
 
 @implementation GKOSCServer
-typedef std::tuple< SEL, NSMethodSignature *, std::set< NSObject * > > selector_signature_objects;
+typedef std::tuple< SEL, TNSsmartPointer<NSMethodSignature>, std::set< TNSsmartPointer<NSObject> > > selector_signature_objects;
 
 std::map<
         path_format, 
@@ -145,7 +145,7 @@ std::map<
 - (void) addObject:(NSObject *)object withMapping:(struct GKOSCMapItem *)items
 {
     for(struct GKOSCMapItem * item = items;item -> path != 0;++item) {        
-        auto tmp = m_mapping.insert(std::make_pair(path_format(item -> path,item -> format),std::make_tuple(item -> selector,(NSMethodSignature *)0,std::set< NSObject * >())));
+        auto tmp = m_mapping.insert(std::make_pair(path_format(item -> path,item -> format),std::make_tuple(item -> selector,(NSMethodSignature *)0,std::set< TNSsmartPointer<NSObject> >())));
         selector_signature_objects & sso = tmp.first -> second;
         
         if(tmp.second) {
@@ -180,9 +180,8 @@ std::map<
                 
                 [invocation setSelector:std::get< 0 >(sso)];
                 
-                const std::set< NSObject * > & objects = std::get< 2 >(sso);
-                for(NSObject * object : objects) {
-                    [invocation invokeWithTarget:object];
+                for(TNSsmartPointer<NSObject> object : std::get< 2 >(sso)) {
+                    [invocation invokeWithTarget:object.it()];
                 }
             }
         }
