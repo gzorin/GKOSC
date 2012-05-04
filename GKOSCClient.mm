@@ -34,7 +34,7 @@ namespace {
 
 @implementation GKOSCClient
 
-std::unordered_map< SEL, std::pair< path_format, signature_size >, hash_SEL, equal_to_SEL > m_mapping;
+std::unordered_map< SEL, std::pair< path_format, NSMethodSignature * >, hash_SEL, equal_to_SEL > m_mapping;
 std::set< id<GKOSCPacketTransporter > > m_transporters;
 
 + (NSMethodSignature *) methodSignatureWithFormat:(NSString *)format
@@ -204,10 +204,10 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
 - (GKOSCClient *)initWithMapping:(struct GKOSCMapItem *)items
 {
     for(struct GKOSCMapItem * item = items;item -> selector != 0;++item) {
-        auto tmp = m_mapping.insert(std::make_pair(item -> selector,std::make_pair(path_format(),signature_size())));
+        auto tmp = m_mapping.insert(std::make_pair(item -> selector,std::make_pair(path_format(),(NSMethodSignature *)0)));
         if(tmp.second) {
             tmp.first -> second.first = path_format(item -> path,item -> format);
-            tmp.first -> second.second = signature_size(item -> format);
+            tmp.first -> second.second = [GKOSCClient methodSignatureWithFormat:item -> format];
         }
     }
     
@@ -229,7 +229,7 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
     auto it = m_mapping.find(sel);
     
     if(it != m_mapping.end()) {
-        return it -> second.second.signature;
+        return it -> second.second;
     }
     else {
         return [super methodSignatureForSelector:sel];

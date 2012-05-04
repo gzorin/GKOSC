@@ -26,7 +26,7 @@ namespace {
 }
 
 @implementation GKOSCServer
-typedef std::tuple< SEL, signature_size, std::set< NSObject * > > selector_signature_objects;
+typedef std::tuple< SEL, NSMethodSignature *, std::set< NSObject * > > selector_signature_objects;
 
 std::map<
         path_format, 
@@ -37,7 +37,6 @@ std::map<
 {
     size_t len = [packet length];
     const uint8_t * bytes = (const uint8_t *)[packet bytes];
-    const uint8_t * pbytes_end = bytes + len;
     
     std::stack< std::pair< const uint8_t *, size_t > > s;
     s.push(std::make_pair(bytes,len));
@@ -153,11 +152,11 @@ std::map<
 - (void) addObject:(NSObject *)object withMapping:(struct GKOSCMapItem *)items
 {
     for(struct GKOSCMapItem * item = items;item -> selector != 0;++item) {
-        auto tmp = m_mapping.insert(std::make_pair(path_format(item -> path,item -> format),std::make_tuple(item -> selector,signature_size(),std::set< NSObject * >())));
+        auto tmp = m_mapping.insert(std::make_pair(path_format(item -> path,item -> format),std::make_tuple(item -> selector,(NSMethodSignature *)0,std::set< NSObject * >())));
         selector_signature_objects & sso = tmp.first -> second;
         
         if(tmp.second) {
-            std::get< 1 >(sso) = signature_size(item -> format);
+            std::get< 1 >(sso) = [GKOSCClient methodSignatureWithFormat:item -> format];
         }
         std::get< 2 >(sso).insert(object);
     }
