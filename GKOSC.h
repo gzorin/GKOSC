@@ -26,6 +26,8 @@ struct GKOSCMapItem {
 @end
 
 @interface GKOSCServer : NSObject
++ (BOOL) decodePacket:(NSData *)packet toInvocations:(NSMutableArray *)invocations toPaths:(NSMutableArray *)paths toFormats:(NSMutableArray *)formats;
+
 - (void) addObject:(NSObject *)object withMapping:(struct GKOSCMapItem *)items;
 - (void) removeObject:(NSObject *)object;
 - (void) dispatchPacket:(NSData *)data;

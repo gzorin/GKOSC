@@ -4,9 +4,6 @@
 #import "GKOSC.h"
 #include "GKOSC_details.h"
 
-#include <osc/OscTypes.h>
-#include <osc/OscOutboundPacketStream.h>
-
 #include <CoreFoundation/CoreFoundation.h>
 
 #import <objc/runtime.h>
@@ -174,14 +171,12 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
         if(*ptype_tags == 'i') {
             int32_t value = 0;
             [invocation getArgument:&value atIndex:j];
-            std::cerr << value << std::endl;
             *(int32_t *)bytes = CFSwapInt32HostToBig(value);
             bytes += sizeof(int32_t);
         }
         else if(*ptype_tags == 'f') {
             float value = 0;
             [invocation getArgument:&value atIndex:j];
-            std::cerr << value << std::endl;
             *(uint32_t* )bytes = CFConvertFloat32HostToSwapped(value).v;
             bytes += sizeof(uint32_t);
         }
@@ -242,9 +237,7 @@ std::set< id<GKOSCPacketTransporter > > m_transporters;
 }
 
 - (void)forwardInvocation:(NSInvocation *)invocation
-{
-    std::cerr << sel_getName([invocation selector]) << std::endl;
-    
+{    
     auto it = m_mapping.find([invocation selector]);
     assert(it != m_mapping.end());
     

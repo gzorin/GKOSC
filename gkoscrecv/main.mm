@@ -7,6 +7,11 @@
 #include <ip/PacketListener.h>
 #include <ip/UdpSocket.h>
 
+struct GKOSCMapItem RealClient_mapping[] = {
+    @"hello",@"if",@selector(hello:value:),
+    0,0,0
+};
+
 @interface RealClient : NSObject
 - (void) hello:(int32_t)x value:(float)t;
 @end
@@ -22,16 +27,11 @@ int
 main(int argc,char ** argv)
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
-    struct GKOSCMapItem items[] = {
-        @"hello",@"i",@selector(hello:),
-        0,0,0
-    };
-    
+        
     RealClient * real_client = [[RealClient alloc] init];
     
     GKOSCServer * server = [[GKOSCServer alloc] init];
-    [server addObject:real_client withMapping:items];
+    [server addObject:real_client withMapping:RealClient_mapping];
     
     struct Listener : PacketListener {
         GKOSCServer * server;
