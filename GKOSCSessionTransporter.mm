@@ -1,5 +1,7 @@
 #import "GKOSC.h"
 
+#include <iostream>
+
 @implementation GKOSCSessionTransporter
 @synthesize session;
 @synthesize sendToAllSessionPeers;
@@ -71,7 +73,7 @@ NSMutableArray * m_peers;
             [session sendDataToAllPeers:data withDataMode:sendMode error:NULL];
         }
         else {
-            [session sendData:data toPeers:m_peers withDataMode:sendMode error:NULL];
+            std::cerr << "Sending " << [data length] << " to all peers" << std::endl;
         }
     }
 }

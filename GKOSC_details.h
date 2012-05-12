@@ -77,6 +77,11 @@ namespace {
         }
         
         inline
+        bool operator <(const TNSsmartPointer & rhs) const {
+            return m_ptr < rhs.m_ptr;
+        }
+        
+        inline
         bool operator ==(const T * rhs) const {
             return m_ptr == rhs;
         }
@@ -84,6 +89,11 @@ namespace {
         inline
         bool operator !=(const T * rhs) const {
             return m_ptr != rhs;
+        }
+        
+        inline
+        bool operator <(const T * rhs) const {
+            return m_ptr < rhs;
         }
         
         inline
