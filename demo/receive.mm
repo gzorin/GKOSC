@@ -8,30 +8,15 @@
 #include <ip/PacketListener.h>
 #include <ip/UdpSocket.h>
 
-@interface RealThing : NSObject< Thing >
-@end
-
-@implementation RealThing
-- (void) hello:(int32_t)x value:(float)t;
-{
-    std::cerr << "hello: " << x << " " << t << std::endl;
-}
-
-- (void) goodbye:(int32_t)x value:(float)t;
-{
-    std::cerr << "goodbye: " << x << " " << t << std::endl;
-}
-@end
-
 int
 main(int argc,char ** argv)
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
         
-    RealThing * real_client = [[RealThing alloc] init];
+    Thing * thing = [[Thing alloc] init];
     
     GKOSCServer * server = [[GKOSCServer alloc] init];
-    [server addObject:real_client withMapping:Thing_mapping];
+    [server addObject:thing withMapping:Thing_mapping];
     
     struct Listener : PacketListener {
         GKOSCServer * server;

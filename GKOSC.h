@@ -6,6 +6,7 @@
 
 #include <Availability.h>
 #import <Foundation/Foundation.h>
+#import "UDPEcho.h"
 
 struct GKOSCMapItem {
     NSString * path, * format;
@@ -33,9 +34,7 @@ struct GKOSCMapItem {
 - (void) dispatchPacket:(NSData *)data;
 @end
 
-@interface GKOSCUDPTransporter : NSObject< GKOSCPacketTransporter >
-- (GKOSCUDPTransporter *)initWithHostname:(NSString *)hostname andPort:(int)port;
-
+@interface GKOSCUDPTransporter : UDPEcho< GKOSCPacketTransporter >
 - (void)transportPacket:(NSData *)data;
 @end
 

@@ -1,23 +1,46 @@
 #import <Foundation/Foundation.h>
 
 #import <GKOSC.h>
-#import "Thing.h"
+#import "ThingInterface.h"
 
 #include <iostream>
 #include <math.h>
+
+@interface Sender : NSObject< UDPEchoDelegate >
+@property (retain) GKOSCClient< ThingInterface > * thing;
+@end
+
+@implementation Sender
+@synthesize thing;
+
+- (void)echo:(UDPEcho *)echo didStartWithAddress:(NSData *)address
+{
+    [self.thing hello:(int32_t)42 value:(float)M_PI * 2.0f];
+    [self.thing goodbye:(int32_t)42 value:(float)M_E];
+}
+
+- (void)echo:(UDPEcho *)echo didFailToSendData:(NSData *)data toAddress:(NSData *)addr error:(NSError *)error
+{
+    std::cerr << __PRETTY_FUNCTION__ << " " << [[error localizedDescription] UTF8String] << std::endl;
+}
+
+@end
 
 int
 main(int argc,char ** argv)
 {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    GKOSCUDPTransporter * d = [[GKOSCUDPTransporter alloc] initWithHostname:@"localhost" andPort:9200];
-        
-    GKOSCClient< Thing > * client = (GKOSCClient< Thing > *)[[GKOSCClient alloc] initWithMapping:Thing_mapping];
-    [client addPacketTransporter:d];
+    Sender * app = [[[Sender alloc] init] retain];
+    app.thing = (GKOSCClient< ThingInterface > *)[[GKOSCClient alloc] initWithMapping:Thing_mapping];
     
-    [client hello:(int32_t)42 value:(float)M_PI * 2.0f];
-    [client goodbye:(int32_t)42 value:(float)M_E];
+    GKOSCUDPTransporter * d = [GKOSCUDPTransporter alloc];
+    [app.thing addPacketTransporter:d];
+    d.delegate = app;
+    
+    [d startConnectedToHostName:@"127.0.0.1" port:9200];
+    
+    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     
     [pool release];
     
