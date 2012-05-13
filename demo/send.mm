@@ -15,8 +15,11 @@
 
 - (void)echo:(UDPEcho *)echo didStartWithAddress:(NSData *)address
 {
-    [self.thing hello:(int32_t)42 value:(float)M_PI * 2.0f];
-    [self.thing goodbye:(int32_t)42 value:(float)M_E];
+    [self.thing hello:@"Fred" value:(float)M_PI * 2.0f];
+    
+    xyz data(3,5,7);
+    
+    [self.thing goodbye:[NSData dataWithBytesNoCopy:&data length:sizeof(xyz) freeWhenDone:NO] value:(float)M_E];
 }
 
 - (void)echo:(UDPEcho *)echo didFailToSendData:(NSData *)data toAddress:(NSData *)addr error:(NSError *)error

@@ -186,12 +186,15 @@ std::set< TNSsmartPointer<NSObject<GKOSCPacketTransporter> > > m_transporters;
             const size_t len = [value length];
             memcpy(bytes,[value UTF8String],len);
             bytes[len] = 0;
-            bytes += len + 1;
+            bytes += aligned_size< 4 >(len + 1);
         }
         else if(*ptype_tags == 'b') {
             NSData * value = 0;
             [invocation getArgument:&value atIndex:j];
-            
+            const int32_t len = (int32_t)[value length];
+            *(int32_t *)bytes = CFSwapInt32HostToBig(len);
+            [value getBytes:bytes + sizeof(int32_t)];
+            bytes += aligned_size< 4 >(len + sizeof(int32_t));
         }
     }
     

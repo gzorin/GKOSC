@@ -3,13 +3,15 @@
 #include <iostream>
 
 @implementation Thing
-- (void) hello:(int32_t)x value:(float)t;
+- (void) hello:(NSString *)n value:(float)t;
 {
-    std::cerr << "hello: " << x << " " << t << std::endl;
+    std::cerr << "hello: " << [n UTF8String] << " " << t << std::endl;
 }
 
-- (void) goodbye:(int32_t)x value:(float)t;
+- (void) goodbye:(NSData *)data value:(float)t;
 {
-    std::cerr << "goodbye: " << x << " " << t << std::endl;
+    xyz * pxyz = (xyz *)[data bytes];
+    
+    std::cerr << "goodbye: " << pxyz->x << "," << pxyz->y << "," << pxyz->z << " " << t << std::endl;
 }
 @end

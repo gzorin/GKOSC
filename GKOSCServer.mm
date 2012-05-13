@@ -128,8 +128,30 @@ std::map<
                     len -= sizeof(uint32_t);
                 }
                 else if(*pptype_tags == 's') {
+                    size_t slen = 0;
+                    const uint8_t * ppbytes = pbytes;
+                    while(*ppbytes != 0 && slen < len) {
+                        ++ppbytes;
+                        ++slen;
+                    }
+                    if(*ppbytes != 0) break;
+                    
+                    NSString * value = [NSString stringWithUTF8String:(const char *)pbytes];
+                    [invocation setArgument:&value atIndex:j];
+                    pbytes += aligned_size< 4 >(slen + 1);
+                    len -= aligned_size< 4 >(slen + 1);
                 }
                 else if(*pptype_tags == 'b') {
+                    if(len < sizeof(int32_t)) break;
+                    
+                    int32_t blen = CFSwapInt32BigToHost(*(uint32_t *)pbytes);
+                    
+                    if(len < (blen + sizeof(int32_t))) break;
+                    
+                    NSData * value = [NSData dataWithBytes:pbytes + sizeof(int32_t) length:blen];
+                    [invocation setArgument:&value atIndex:j];
+                    pbytes += aligned_size< 4 >(blen + sizeof(int32_t));
+                    len -= aligned_size< 4 >(blen + sizeof(int32_t));
                 }
             }
             
