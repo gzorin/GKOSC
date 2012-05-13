@@ -6,4 +6,4 @@ The library furnishes OSC client programs with an Objective-C message invocation
 
 Please see the demo/ directory to view some simple examples. In general, programs that use this library should associate OSC addresses ("/foo") and argument format strings ("fff", etc") with Objective-C selectors (@selector(performFooWithX:andY:andZ:)). The OSC argument format string (and not the object method's signature, as this may not be known on the client side) is authoritative about the data that gets serialized.
 
-Currently, only OSC 1.0 is supported.
+Currently, only OSC 1.0 is supported - so integer, float, string, and blob arguments are supported.
