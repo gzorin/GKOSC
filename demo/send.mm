@@ -34,11 +34,11 @@ main(int argc,char ** argv)
     Sender * app = [[[Sender alloc] init] retain];
     app.thing = (GKOSCClient< ThingInterface > *)[[GKOSCClient alloc] initWithMapping:Thing_mapping];
     
-    GKOSCUDPTransporter * d = [GKOSCUDPTransporter alloc];
-    [app.thing addPacketTransporter:d];
-    d.delegate = app;
+    GKOSCUDPTransporter * t = [GKOSCUDPTransporter alloc];
+    [app.thing addPacketTransporter:t];
+    t.delegate = app;
     
-    [d startConnectedToHostName:@"127.0.0.1" port:9200];
+    [t startConnectedToHostName:@"127.0.0.1" port:9200];
     
     [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     

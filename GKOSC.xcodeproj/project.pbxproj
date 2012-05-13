@@ -16,6 +16,8 @@
 		FA1AE671155EC94100B06579 /* UDPEcho.m in Sources */ = {isa = PBXBuildFile; fileRef = FA1AE66F155EC94000B06579 /* UDPEcho.m */; };
 		FA1AE67B155ECA4A00B06579 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1AE677155ECA0100B06579 /* CoreServices.framework */; };
 		FA1AE67D1560355F00B06579 /* Thing.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA1AE67C1560355F00B06579 /* Thing.mm */; };
+		FA1AE6871560384F00B06579 /* GKOSCUDPServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA1AE6861560384F00B06579 /* GKOSCUDPServer.mm */; };
+		FA1AE688156039D200B06579 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1AE677155ECA0100B06579 /* CoreServices.framework */; };
 		FA6C8A5C1551F27B00562FB8 /* GKOSCServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCCE1551C8E900331DC2 /* GKOSCServer.mm */; };
 		FA6C8A5D1551F27B00562FB8 /* GKOSCClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCB715516BF100331DC2 /* GKOSCClient.mm */; };
 		FA6C8A5E1551F27B00562FB8 /* GKOSCUDPTransporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA76BCC81551C4EB00331DC2 /* GKOSCUDPTransporter.mm */; };
@@ -60,6 +62,7 @@
 		FA1AE679155ECA1A00B06579 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		FA1AE67C1560355F00B06579 /* Thing.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Thing.mm; path = demo/Thing.mm; sourceTree = "<group>"; };
 		FA1AE685156035DF00B06579 /* Thing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Thing.h; path = demo/Thing.h; sourceTree = "<group>"; };
+		FA1AE6861560384F00B06579 /* GKOSCUDPServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCUDPServer.mm; sourceTree = "<group>"; };
 		FA6C8A581551F26600562FB8 /* libGKOSC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGKOSC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionTransporter.mm; sourceTree = "<group>"; };
 		FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionHandlerServer.mm; sourceTree = "<group>"; };
@@ -123,9 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA1AE67B155ECA4A00B06579 /* CoreServices.framework in Frameworks */,
 				FA6C8A601551F2AF00562FB8 /* libGKOSC.a in Frameworks */,
 				FA76BCAB155169AE00331DC2 /* Foundation.framework in Frameworks */,
+				FA1AE67B155ECA4A00B06579 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +138,7 @@
 			files = (
 				FA6C8A611551F2B400562FB8 /* libGKOSC.a in Frameworks */,
 				FA76BCD81551DE2900331DC2 /* Foundation.framework in Frameworks */,
+				FA1AE688156039D200B06579 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +165,7 @@
 				FA76BCB715516BF100331DC2 /* GKOSCClient.mm */,
 				FA76BCCE1551C8E900331DC2 /* GKOSCServer.mm */,
 				FA76BCC81551C4EB00331DC2 /* GKOSCUDPTransporter.mm */,
+				FA1AE6861560384F00B06579 /* GKOSCUDPServer.mm */,
 				FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */,
 				FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */,
 				FA76BCD01551CDBA00331DC2 /* GKOSC_details.h */,
@@ -402,6 +407,7 @@
 				FA1AE669155EC75F00B06579 /* receive.mm in Sources */,
 				FA1AE66A155EC75F00B06579 /* send.mm in Sources */,
 				FA1AE671155EC94100B06579 /* UDPEcho.m in Sources */,
+				FA1AE6871560384F00B06579 /* GKOSCUDPServer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,6 +38,9 @@ struct GKOSCMapItem {
 - (void)transportPacket:(NSData *)data;
 @end
 
+@interface GKOSCUDPServer : GKOSCServer< UDPEchoDelegate >
+@end
+
 #if defined(__IPHONE_OS_VERSION_MAX_ALLOWED)
 #import <GameKit/GameKit.h>
 
