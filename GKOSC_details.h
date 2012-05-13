@@ -10,7 +10,6 @@
 
 #import <objc/runtime.h>
 
-#include <osc/OscTypes.h>
 
 namespace {
     

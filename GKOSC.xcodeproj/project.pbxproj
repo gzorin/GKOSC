@@ -26,9 +26,6 @@
 		FA6C8A631552097100562FB8 /* GKOSC.h in Headers */ = {isa = PBXBuildFile; fileRef = FA76BC89155167A300331DC2 /* GKOSC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FA76BCAB155169AE00331DC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC94155168DA00331DC2 /* Foundation.framework */; };
 		FA76BCD81551DE2900331DC2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA76BC94155168DA00331DC2 /* Foundation.framework */; };
-		FAA479F115545DD800F52825 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC5F1550E91800331DC2 /* IpEndpointName.cpp */; };
-		FAA479F215545DD800F52825 /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC641550E91800331DC2 /* NetworkingUtils.cpp */; };
-		FAA479F315545DD800F52825 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA76BC651550E91800331DC2 /* UdpSocket.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,44 +63,6 @@
 		FA6C8A581551F26600562FB8 /* libGKOSC.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGKOSC.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA6C8A8B155210A400562FB8 /* GKOSCSessionTransporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionTransporter.mm; sourceTree = "<group>"; };
 		FA6C8A8E155216FB00562FB8 /* GKOSCSessionHandlerServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GKOSCSessionHandlerServer.mm; sourceTree = "<group>"; };
-		FA76BC581550E91800331DC2 /* CHANGES */ = {isa = PBXFileReference; lastKnownFileType = text; path = CHANGES; sourceTree = "<group>"; };
-		FA76BC591550E91800331DC2 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		FA76BC5B1550E91800331DC2 /* OscDump.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscDump.cpp; sourceTree = "<group>"; };
-		FA76BC5C1550E91800331DC2 /* SimpleReceive.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleReceive.cpp; sourceTree = "<group>"; };
-		FA76BC5D1550E91800331DC2 /* SimpleSend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SimpleSend.cpp; sourceTree = "<group>"; };
-		FA76BC5F1550E91800331DC2 /* IpEndpointName.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
-		FA76BC601550E91800331DC2 /* IpEndpointName.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
-		FA76BC611550E91800331DC2 /* NetworkingUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
-		FA76BC621550E91800331DC2 /* PacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PacketListener.h; sourceTree = "<group>"; };
-		FA76BC641550E91800331DC2 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
-		FA76BC651550E91800331DC2 /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
-		FA76BC661550E91800331DC2 /* TimerListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimerListener.h; sourceTree = "<group>"; };
-		FA76BC671550E91800331DC2 /* UdpSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UdpSocket.h; sourceTree = "<group>"; };
-		FA76BC691550E91800331DC2 /* NetworkingUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NetworkingUtils.cpp; sourceTree = "<group>"; };
-		FA76BC6A1550E91800331DC2 /* UdpSocket.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = UdpSocket.cpp; sourceTree = "<group>"; };
-		FA76BC6B1550E91800331DC2 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		FA76BC6C1550E91800331DC2 /* make.MinGW32.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = make.MinGW32.bat; sourceTree = "<group>"; };
-		FA76BC6D1550E91800331DC2 /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
-		FA76BC6F1550E91800331DC2 /* MessageMappingOscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageMappingOscPacketListener.h; sourceTree = "<group>"; };
-		FA76BC701550E91800331DC2 /* OscException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscException.h; sourceTree = "<group>"; };
-		FA76BC711550E91800331DC2 /* OscHostEndianness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscHostEndianness.h; sourceTree = "<group>"; };
-		FA76BC721550E91800331DC2 /* OscOutboundPacketStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscOutboundPacketStream.cpp; sourceTree = "<group>"; };
-		FA76BC731550E91800331DC2 /* OscOutboundPacketStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscOutboundPacketStream.h; sourceTree = "<group>"; };
-		FA76BC741550E91800331DC2 /* OscPacketListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscPacketListener.h; sourceTree = "<group>"; };
-		FA76BC751550E91800331DC2 /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscPrintReceivedElements.cpp; sourceTree = "<group>"; };
-		FA76BC761550E91800331DC2 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscPrintReceivedElements.h; sourceTree = "<group>"; };
-		FA76BC771550E91800331DC2 /* OscReceivedElements.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscReceivedElements.cpp; sourceTree = "<group>"; };
-		FA76BC781550E91800331DC2 /* OscReceivedElements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscReceivedElements.h; sourceTree = "<group>"; };
-		FA76BC791550E91800331DC2 /* OscTypes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscTypes.cpp; sourceTree = "<group>"; };
-		FA76BC7A1550E91800331DC2 /* OscTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscTypes.h; sourceTree = "<group>"; };
-		FA76BC7B1550E91800331DC2 /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		FA76BC7D1550E91800331DC2 /* OscReceiveTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscReceiveTest.cpp; sourceTree = "<group>"; };
-		FA76BC7E1550E91800331DC2 /* OscReceiveTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscReceiveTest.h; sourceTree = "<group>"; };
-		FA76BC7F1550E91800331DC2 /* OscSendTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscSendTests.cpp; sourceTree = "<group>"; };
-		FA76BC801550E91800331DC2 /* OscSendTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscSendTests.h; sourceTree = "<group>"; };
-		FA76BC811550E91800331DC2 /* OscUnitTests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OscUnitTests.cpp; sourceTree = "<group>"; };
-		FA76BC821550E91800331DC2 /* OscUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OscUnitTests.h; sourceTree = "<group>"; };
-		FA76BC831550E91800331DC2 /* TODO */ = {isa = PBXFileReference; lastKnownFileType = text; path = TODO; sourceTree = "<group>"; };
 		FA76BC89155167A300331DC2 /* GKOSC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKOSC.h; sourceTree = "<group>"; };
 		FA76BC94155168DA00331DC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FA76BCA9155169AE00331DC2 /* gkoscsend */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = gkoscsend; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,7 +131,6 @@
 				FA1AE66E155EC94000B06579 /* UDPEcho.h */,
 				FA1AE66F155EC94000B06579 /* UDPEcho.m */,
 				FA1AE665155EC74600B06579 /* demo */,
-				FA76BC561550E91800331DC2 /* extsrc */,
 				FA76BC93155168DA00331DC2 /* Frameworks */,
 				FA76BC461550E88F00331DC2 /* Products */,
 			);
@@ -186,107 +144,6 @@
 				FA6C8A581551F26600562FB8 /* libGKOSC.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		FA76BC561550E91800331DC2 /* extsrc */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC571550E91800331DC2 /* oscpack */,
-			);
-			path = extsrc;
-			sourceTree = "<group>";
-		};
-		FA76BC571550E91800331DC2 /* oscpack */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC581550E91800331DC2 /* CHANGES */,
-				FA76BC591550E91800331DC2 /* CMakeLists.txt */,
-				FA76BC5A1550E91800331DC2 /* examples */,
-				FA76BC5E1550E91800331DC2 /* ip */,
-				FA76BC6B1550E91800331DC2 /* LICENSE */,
-				FA76BC6C1550E91800331DC2 /* make.MinGW32.bat */,
-				FA76BC6D1550E91800331DC2 /* Makefile */,
-				FA76BC6E1550E91800331DC2 /* osc */,
-				FA76BC7B1550E91800331DC2 /* README */,
-				FA76BC7C1550E91800331DC2 /* tests */,
-				FA76BC831550E91800331DC2 /* TODO */,
-			);
-			path = oscpack;
-			sourceTree = "<group>";
-		};
-		FA76BC5A1550E91800331DC2 /* examples */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC5B1550E91800331DC2 /* OscDump.cpp */,
-				FA76BC5C1550E91800331DC2 /* SimpleReceive.cpp */,
-				FA76BC5D1550E91800331DC2 /* SimpleSend.cpp */,
-			);
-			path = examples;
-			sourceTree = "<group>";
-		};
-		FA76BC5E1550E91800331DC2 /* ip */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC5F1550E91800331DC2 /* IpEndpointName.cpp */,
-				FA76BC601550E91800331DC2 /* IpEndpointName.h */,
-				FA76BC611550E91800331DC2 /* NetworkingUtils.h */,
-				FA76BC621550E91800331DC2 /* PacketListener.h */,
-				FA76BC631550E91800331DC2 /* posix */,
-				FA76BC661550E91800331DC2 /* TimerListener.h */,
-				FA76BC671550E91800331DC2 /* UdpSocket.h */,
-				FA76BC681550E91800331DC2 /* win32 */,
-			);
-			path = ip;
-			sourceTree = "<group>";
-		};
-		FA76BC631550E91800331DC2 /* posix */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC641550E91800331DC2 /* NetworkingUtils.cpp */,
-				FA76BC651550E91800331DC2 /* UdpSocket.cpp */,
-			);
-			path = posix;
-			sourceTree = "<group>";
-		};
-		FA76BC681550E91800331DC2 /* win32 */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC691550E91800331DC2 /* NetworkingUtils.cpp */,
-				FA76BC6A1550E91800331DC2 /* UdpSocket.cpp */,
-			);
-			path = win32;
-			sourceTree = "<group>";
-		};
-		FA76BC6E1550E91800331DC2 /* osc */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC6F1550E91800331DC2 /* MessageMappingOscPacketListener.h */,
-				FA76BC701550E91800331DC2 /* OscException.h */,
-				FA76BC711550E91800331DC2 /* OscHostEndianness.h */,
-				FA76BC731550E91800331DC2 /* OscOutboundPacketStream.h */,
-				FA76BC721550E91800331DC2 /* OscOutboundPacketStream.cpp */,
-				FA76BC751550E91800331DC2 /* OscPrintReceivedElements.cpp */,
-				FA76BC771550E91800331DC2 /* OscReceivedElements.cpp */,
-				FA76BC791550E91800331DC2 /* OscTypes.cpp */,
-				FA76BC741550E91800331DC2 /* OscPacketListener.h */,
-				FA76BC761550E91800331DC2 /* OscPrintReceivedElements.h */,
-				FA76BC781550E91800331DC2 /* OscReceivedElements.h */,
-				FA76BC7A1550E91800331DC2 /* OscTypes.h */,
-			);
-			path = osc;
-			sourceTree = "<group>";
-		};
-		FA76BC7C1550E91800331DC2 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				FA76BC7D1550E91800331DC2 /* OscReceiveTest.cpp */,
-				FA76BC7E1550E91800331DC2 /* OscReceiveTest.h */,
-				FA76BC7F1550E91800331DC2 /* OscSendTests.cpp */,
-				FA76BC801550E91800331DC2 /* OscSendTests.h */,
-				FA76BC811550E91800331DC2 /* OscUnitTests.cpp */,
-				FA76BC821550E91800331DC2 /* OscUnitTests.h */,
-			);
-			path = tests;
 			sourceTree = "<group>";
 		};
 		FA76BC93155168DA00331DC2 /* Frameworks */ = {
@@ -398,9 +255,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA479F115545DD800F52825 /* IpEndpointName.cpp in Sources */,
-				FAA479F215545DD800F52825 /* NetworkingUtils.cpp in Sources */,
-				FAA479F315545DD800F52825 /* UdpSocket.cpp in Sources */,
 				FA6C8A5C1551F27B00562FB8 /* GKOSCServer.mm in Sources */,
 				FA6C8A5D1551F27B00562FB8 /* GKOSCClient.mm in Sources */,
 				FA6C8A5E1551F27B00562FB8 /* GKOSCUDPTransporter.mm in Sources */,

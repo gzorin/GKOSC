@@ -56,38 +56,38 @@ std::set< TNSsmartPointer<NSObject<GKOSCPacketTransporter> > > m_transporters;
     
     for(size_t i = 0;i < ntypes;++i) {
         switch([format characterAtIndex:i]) {
-            case osc::TRUE_TYPE_TAG:
-            case osc::FALSE_TYPE_TAG:
+            case 'T':
+            case 'F':
                 types += std::string(@encode(BOOL));
                 break;
-            case osc::NIL_TYPE_TAG:
+            case 'N':
                 types += std::string(@encode(const void *));
                 break;
-            case osc::INT32_TYPE_TAG:
+            case 'i':
                 types += std::string(@encode(int32_t));
                 break;
-            case osc::FLOAT_TYPE_TAG:
+            case 'f':
                 types += std::string(@encode(float));
                 break;
-            case osc::CHAR_TYPE_TAG:
+            case 'c':
                 types += std::string(@encode(char));
                 break;
-            case osc::RGBA_COLOR_TYPE_TAG:
-            case osc::MIDI_MESSAGE_TYPE_TAG:
+            case 'r':
+            case 'm':
                 types += std::string(@encode(uint32_t));
                 break;
-            case osc::INT64_TYPE_TAG:
+            case 'h':
                 types += std::string(@encode(int64_t));
                 break;
-            case osc::TIME_TAG_TYPE_TAG:
+            case 't':
                 types += std::string(@encode(uint64_t));
                 break;
-            case osc::DOUBLE_TYPE_TAG:
+            case 'd':
                 types += std::string(@encode(double));
                 break;
-            case osc::STRING_TYPE_TAG:
-            case osc::SYMBOL_TYPE_TAG:
-            case osc::BLOB_TYPE_TAG:
+            case 's':
+            case 'S':
+            case 'b':
                 types += std::string(@encode(id));
                 break;
             default:
