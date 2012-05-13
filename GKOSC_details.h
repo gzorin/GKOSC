@@ -1,3 +1,8 @@
+// GKOSC - OSC remote procedure calling over GameKit
+// Copyright (c) 2012, Alexander Betts (alex.betts@gmail.com)
+//
+// GKOSC_details.h
+
 #ifndef GKOSC_details_H
 #define GKOSC_details_H
 

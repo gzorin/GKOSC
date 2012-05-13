@@ -1,3 +1,9 @@
+// GKOSC - OSC remote procedure calling over GameKit
+// Copyright (c) 2012, Alexander Betts (alex.betts@gmail.com)
+//
+// gkoscsend - Example GKOSC program that sends a couple of canned messages to an instance of the Thing class.
+// See ThingInterface for the interface that this program expects to send messages to.
+
 #import <Foundation/Foundation.h>
 
 #import <GKOSC.h>
